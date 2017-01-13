@@ -1,0 +1,59 @@
+# dev env docker image
+
+# Ubuntu 16.04 LTS (xenial)
+FROM ubuntu:16.04
+MAINTAINER Peng Zhuang <zhuangpeng0514@sina.com>
+
+# install jdk8 from PPA
+#RUN apt-get update
+#RUN apt-get install --yes software-properties-common
+#RUN add-apt-repository ppa:webupd8team/java
+#RUN apt-get update
+# got some problem when install oracle-java8-installer, switch to traditional way
+#RUN apt-get install --yes oracle-java8-installer
+#RUN echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | sudo /usr/bin/debconf-set-selections
+# set system default jdk
+#RUN update-java-alternatives -s java-8-oracle
+
+# install git
+RUN apt-get update
+RUN apt-get install --yes software-properties-common
+RUN add-apt-repository ppa:git-core/ppa
+RUN apt-get update
+RUN apt-get install --yes git
+
+# install ping, netstat,unzip tools
+RUN apt-get install --yes iputils-ping net-tools
+RUN apt-get install --yes unzip
+
+# copy and test jdk1.8 
+ADD jdk-8u11-linux-x64.tar.gz /usr/local/java
+RUN /usr/local/java/jdk1.8.0_11/bin/java -version
+RUN rm -rf /usr/local/java/jdk-8u11-linux-x64.tar.gz
+
+# copy and install maven3 and gradle2
+ADD apache-maven-3.3.3-bin.zip /usr/local/maven/apache-maven-3.3.3-bin.zip
+RUN unzip /usr/local/maven/apache-maven-3.3.3-bin.zip -d /usr/local/maven/
+ADD gradle-2.10-all.zip /usr/local/gradle/gradle-2.10-all.zip
+RUN unzip /usr/local/gradle/gradle-2.10-all.zip -d /usr/local/gradle
+RUN rm -rf /usr/local/maven/apache-maven-3.3.3-bin.zip /usr/local/gradle/gradle-2.10-all.zip 
+RUN export JAVA_HOME=/usr/local/java/jdk1.8.0_11 && /usr/local/maven/apache-maven-3.3.3/bin/mvn -v && /usr/local/gradle/gradle-2.10/bin/gradle -v
+
+# configuration and settings
+ADD devenv.tar /etc/profile.d/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

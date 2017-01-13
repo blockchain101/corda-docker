@@ -1,0 +1,69 @@
+corda-controller:
+  container_name: corda-controller
+  hostname: corda-controller
+  image: blockchain101/corda-dev:latest
+  volumes:
+    - ~/cordadata:/cordadata
+  ports:
+    - "10003:10003"
+  environment:
+    - NODE_NAME=controller
+    - NODE_WORK_DIR=/corda-testnet/controller
+  command: bash
+  stdin_open: true
+  tty: true
+  command: sh -c "cp /cordadata/hosts /etc/hosts; /corda-testnet/startNode.sh"
+corda-nodea:
+  container_name: corda-nodea
+  hostname: corda-nodea
+  image: blockchain101/corda-dev:latest
+  volumes:
+    - ~/cordadata:/cordadata  
+  ports:
+    - "10005:10005"
+  environment:
+    - NODE_NAME=nodea
+    - NODE_WORK_DIR=/corda-testnet/nodea
+  command: bash
+  stdin_open: true
+  tty: true
+  command: sh -c "cp /cordadata/hosts /etc/hosts; /corda-testnet/startNode.sh"
+  links:
+    - corda-controller
+corda-nodeb:
+  container_name: corda-nodeb
+  hostname: corda-nodeb
+  image: blockchain101/corda-dev:latest
+  volumes:
+    - ~/cordadata:/cordadata  
+  ports:
+    - "10007:10007"
+  environment:
+    - NODE_NAME=nodeb
+    - NODE_WORK_DIR=/corda-testnet/nodeb
+  command: bash
+  stdin_open: true
+  tty: true
+  command: sh -c "cp /cordadata/hosts /etc/hosts; /corda-testnet/startNode.sh"
+  links:
+    - corda-controller
+    - corda-nodea
+corda-nodec:
+  container_name: corda-nodec
+  hostname: corda-nodec
+  image: blockchain101/corda-dev:latest
+  volumes:
+    - ~/cordadata:/cordadata  
+  ports:
+    - "10009:10009"
+  environment:
+    - NODE_NAME=nodec
+    - NODE_WORK_DIR=/corda-testnet/nodec
+  command: bash
+  stdin_open: true
+  tty: true
+  command: sh -c "cp /cordadata/hosts /etc/hosts; /corda-testnet/startNode.sh"
+  links:
+    - corda-controller
+    - corda-nodea
+    - corda-nodeb

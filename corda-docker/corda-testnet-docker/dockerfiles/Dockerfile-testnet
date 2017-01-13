@@ -1,0 +1,33 @@
+# corda-testnet docker image
+
+# Ubuntu 16.04 LTS (xenial)
+FROM blockchain101/ubuntu16.04-dev:jdk8-maven3-gradle2-git
+MAINTAINER Peng Zhuang <zhuangpeng0514@sina.com>
+
+# copy the corda-testnet resource files into the image
+ADD corda-settings.tar /corda-testnet
+
+# change to work directory
+WORKDIR /corda-testnet
+
+# copy nodes.tar into /corda-testnet
+ADD cordapp-template-nodes.tar /corda-testnet
+
+# copy scripts and config nodes
+ADD cordapp-template-startNode.tar /corda-testnet
+ADD cordapp-template-configNodes.tar /corda-testnet
+RUN bash ./configNodes.sh
+
+
+
+
+
+
+
+
+
+
+
+
+
+

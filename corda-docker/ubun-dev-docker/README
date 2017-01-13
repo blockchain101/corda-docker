@@ -1,0 +1,1 @@
+docker build -f Dockerfile-ubuntu16-jdk8-maven3-gradle2-git -t blockchain101/ubuntu16.04-dev:jdk8-maven3-gradle2-git .

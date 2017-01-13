@@ -1,0 +1,4 @@
+docker build -f Dockerfile-testnet -t blockchain101/corda-testnet:ubun1.0 .
+tar cvf cordapp-template-startNode.tar startNode.sh
+tar cvf cordapp-template-configNodes.tar configNodes.sh
+tar cvf cordapp-template-nodes.tar nodea nodeb nodec controller
