@@ -1,1 +1,1 @@
-dockerfile and docker-compose files to create blockchain101/corda-dev blockchain101/corda-testnet blockchain101/ubuntu16.04-dev images and run corda testnet multi-nodes containers 
+dockerfile files to create blockchain101/corda-dev blockchain101/corda-testnet blockchain101/ubuntu16.04-dev images which submitted in docker hub and and docker-compose file to run corda testnet multi-nodes containers 
